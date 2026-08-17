@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JERRYLUVSYU SCRIPT</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #000;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Orbitron', sans-serif;
+    overflow-x: hidden;
+    overflow-y: auto;
+    position: relative;
+  }
+
+  /* Grid bg */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(0,255,180,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,255,180,0.04) 1px, transparent 1px);
+    background-size: 40px 40px;
+    animation: gridMove 20s linear infinite;
+    z-index: 0;
+  }
+
+  @keyframes gridMove {
+    0% { background-position: 0 0; }
+    100% { background-position: 40px 40px; }
+  }
+
+  /* Scanline */
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(0,0,0,0.15) 2px,
+      rgba(0,0,0,0.15) 4px
+    );
+    pointer-events: none;
+    z-index: 999;
+  }
+
+  .container {
+    position: relative;
+    z-index: 10;
+    text-align: center;
+    padding: 40px 20px;
+  }
+
+  /* ===== MAIN TITLE ===== */
+  .main-title {
+    font-size: clamp(2rem, 7vw, 5.5rem);
+    font-weight: 900;
+    letter-spacing: 0.15em;
+    color: #fff;
+    text-transform: uppercase;
+    position: relative;
+    animation: titleReveal 1s ease forwards;
+    opacity: 0;
+  }
+
+  @keyframes titleReveal {
+    0% { opacity: 0; transform: scale(1.1); filter: blur(20px); }
+    100% { opacity: 1; transform: scale(1); filter: blur(0); }
+  }
+
+  .main-title .glitch {
+    position: relative;
+    display: inline-block;
+    animation: glitch 3s infinite;
+  }
+
+  .main-title .glitch::before,
+  .main-title .glitch::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%;
+  }
+
+  .main-title .glitch::before {
+    color: #ff0040;
+    animation: glitchTop 3s infinite;
+    clip-path: polygon(0 0, 100% 0, 100% 35%, 0 35%);
+  }
+
+  .main-title .glitch::after {
+    color: #00fff7;
+    animation: glitchBot 3s infinite;
+    clip-path: polygon(0 65%, 100% 65%, 100% 100%, 0 100%);
+  }
+
+  @keyframes glitch {
+    0%, 90%, 100% { transform: none; }
+    92% { transform: skew(-1deg); }
+    94% { transform: skew(1deg); }
+    96% { transform: skew(-0.5deg); }
+  }
+
+  @keyframes glitchTop {
+    0%, 90%, 100% { transform: none; opacity: 0; }
+    92% { transform: translate(-3px, -2px); opacity: 1; }
+    94% { transform: translate(3px, 1px); opacity: 0.8; }
+    96% { transform: none; opacity: 0; }
+  }
+
+  @keyframes glitchBot {
+    0%, 90%, 100% { transform: none; opacity: 0; }
+    92% { transform: translate(3px, 2px); opacity: 1; }
+    94% { transform: translate(-2px, -1px); opacity: 0.8; }
+    96% { transform: none; opacity: 0; }
+  }
+
+  .subtitle {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: clamp(0.7rem, 2vw, 1rem);
+    letter-spacing: 0.4em;
+    color: #00fff7;
+    margin-top: 8px;
+    animation: fadeIn 1s 0.8s ease forwards;
+    opacity: 0;
+    text-shadow: 0 0 10px #00fff7;
+  }
+
+  @keyframes fadeIn {
+    to { opacity: 1; }
+  }
+
+  /* Neon line divider */
+  .divider {
+    width: 80%;
+    max-width: 600px;
+    height: 2px;
+    margin: 40px auto;
+    background: linear-gradient(90deg, transparent, #00fff7, #ff0040, #00fff7, transparent);
+    position: relative;
+    animation: fadeIn 1s 1.2s ease forwards;
+    opacity: 0;
+  }
+
+  .divider::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: inherit;
+    filter: blur(6px);
+    opacity: 0.8;
+  }
+
+  /* ===== SECTIONS ===== */
+  .sections {
+    display: flex;
+    gap: 30px;
+    justify-content: center;
+    flex-wrap: wrap;
+    animation: fadeIn 1s 1.5s ease forwards;
+    opacity: 0;
+  }
+
+  .section-card {
+    position: relative;
+    padding: 28px 36px;
+    border: 1px solid rgba(0,255,247,0.3);
+    background: rgba(0, 20, 30, 0.7);
+    cursor: pointer;
+    min-width: 220px;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+  }
+
+  .section-card::before {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    background: linear-gradient(135deg, #00fff7, transparent, #ff0040);
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  .section-card:hover::before { opacity: 1; }
+
+  .section-card:hover {
+    background: rgba(0, 40, 50, 0.9);
+    transform: translateY(-4px);
+    box-shadow: 0 0 30px rgba(0,255,247,0.3), 0 0 60px rgba(255,0,64,0.1);
+  }
+
+  .card-tag {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.3em;
+    color: #ff0040;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .card-tag::before {
+    content: '';
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    background: #ff0040;
+    border-radius: 50%;
+    box-shadow: 0 0 8px #ff0040;
+    animation: blink 1.2s infinite;
+  }
+
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.2; }
+  }
+
+  .card-title {
+    font-size: clamp(1.1rem, 3vw, 1.5rem);
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: 0.1em;
+    text-shadow: 0 0 20px rgba(0,255,247,0.5);
+  }
+
+  .card-line {
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(90deg, #00fff7, transparent);
+    margin: 14px 0;
+  }
+
+  .card-desc {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.7rem;
+    color: rgba(0,255,247,0.6);
+    letter-spacing: 0.1em;
+  }
+
+  /* Script box */
+  .script-box {
+    margin-top: 14px;
+    background: rgba(0,0,0,0.6);
+    border: 1px solid rgba(0,255,247,0.2);
+    border-radius: 4px;
+    padding: 10px 12px;
+    text-align: left;
+    position: relative;
+  }
+
+  .script-code {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.62rem;
+    color: #00fff7;
+    word-break: break-all;
+    line-height: 1.5;
+    user-select: all;
+  }
+
+  .copy-btn {
+    margin-top: 10px;
+    width: 100%;
+    padding: 7px 0;
+    background: transparent;
+    border: 1px solid #00fff7;
+    color: #00fff7;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-transform: uppercase;
+  }
+
+  .copy-btn:hover {
+    background: rgba(0,255,247,0.15);
+    box-shadow: 0 0 12px rgba(0,255,247,0.4);
+  }
+
+  .copy-btn.copied {
+    border-color: #00ff88;
+    color: #00ff88;
+    box-shadow: 0 0 12px rgba(0,255,136,0.4);
+  }
+
+  /* Corner brackets */
+  .section-card .corner {
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    border-color: #00fff7;
+    border-style: solid;
+    opacity: 0.6;
+  }
+  .corner.tl { top: 4px; left: 4px; border-width: 2px 0 0 2px; }
+  .corner.tr { top: 4px; right: 4px; border-width: 2px 2px 0 0; }
+  .corner.bl { bottom: 4px; left: 4px; border-width: 0 0 2px 2px; }
+  .corner.br { bottom: 4px; right: 4px; border-width: 0 2px 2px 0; }
+
+  /* Floating particles */
+  .particles {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .particle {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: #00fff7;
+    border-radius: 50%;
+    animation: float linear infinite;
+    opacity: 0;
+  }
+
+  @keyframes float {
+    0% { transform: translateY(100vh) translateX(0); opacity: 0; }
+    10% { opacity: 1; }
+    90% { opacity: 1; }
+    100% { transform: translateY(-10vh) translateX(30px); opacity: 0; }
+  }
+</style>
+</head>
+<body>
+
+<div class="particles" id="particles"></div>
+
+<div class="container">
+  <div class="main-title">
+    <span class="glitch" data-text="JERRYLUVSYU">JERRYLUVSYU</span>
+  </div>
+  <div class="subtitle">S C R I P T</div>
+
+  <div class="divider"></div>
+
+  <div class="sections">
+    <!-- Card 1 -->
+    <div class="section-card">
+      <div class="corner tl"></div>
+      <div class="corner tr"></div>
+      <div class="corner bl"></div>
+      <div class="corner br"></div>
+      <div class="card-tag">MODULE 01</div>
+      <div class="card-title">ANTILAG V1</div>
+      <div class="card-line"></div>
+      <div class="card-desc">CORE ENGINE</div>
+      <div class="script-box">
+        <div class="script-code" id="script1">loadstring(game:HttpGet("https://pastebin.com/raw/nt8VxNH4"))()</div>
+      </div>
+      <button class="copy-btn" onclick="copyScript()">[ COPY SCRIPT ]</button>
+    </div>
+
+    <!-- Card 2 -->
+    <div class="section-card">
+      <div class="corner tl"></div>
+      <div class="corner tr"></div>
+      <div class="corner bl"></div>
+      <div class="corner br"></div>
+      <div class="card-tag">MODULE 02</div>
+      <div class="card-title">ANTILAG V2 DNS</div>
+      <div class="card-line"></div>
+      <div class="card-desc">DNS ENHANCED</div>
+      <div class="script-box">
+        <div class="script-code" id="script2">loadstring(game:HttpGet("https://pastebin.com/raw/iKuikYx9"))()</div>
+      </div>
+      <button class="copy-btn" onclick="copyScript2()">[ COPY SCRIPT ]</button>
+    </div>
+  </div>
+
+  <!-- MINECRAFT DIVIDER -->
+  <div class="divider" style="animation-delay: 0s; opacity: 1; margin-top: 60px;"></div>
+
+  <div class="section-label" style="
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.5em;
+    color: rgba(0,255,247,0.5);
+    text-transform: uppercase;
+    margin-bottom: 30px;
+    text-align: center;
+  ">⬡ MINECRAFT BEDROCK PACKS ⬡</div>
+
+  <div class="sections mc-section">
+
+    <!-- MC Pack 1: Alberto Remake -->
+    <div class="section-card mc-card">
+      <div class="corner tl"></div>
+      <div class="corner tr"></div>
+      <div class="corner bl"></div>
+      <div class="corner br"></div>
+      <div class="card-tag" style="color:#00ff88;">
+        <span style="background:#00ff88; box-shadow: 0 0 8px #00ff88;"></span>
+        MCPACK 01
+      </div>
+      <div class="card-title">ALBERTO REMAKE</div>
+      <div class="card-line" style="background: linear-gradient(90deg, #00ff88, transparent);"></div>
+      <div class="card-desc">CLIENT PACK · TWILIGHT SMP</div>
+      <div class="script-box" style="border-color: rgba(0,255,136,0.2);">
+        <div class="script-code" style="color: #00ff88; font-size: 0.65rem;">
+          ✦ Custom textures &amp; UI<br>
+          ✦ Neon cyberpunk theme<br>
+          ✦ Optimized for Bedrock
+        </div>
+      </div>
+      <a class="dl-btn" href="https://www.mediafire.com/file/spybs6zoxwkezel/Alberto_Client_v1_mcpack_CLEAN.mcpack/file" target="_blank">[ DOWNLOAD PACK ]</a>
+    </div>
+
+    <!-- MC Pack 2: Potato Mode Anti-Lag -->
+    <div class="section-card mc-card">
+      <div class="corner tl"></div>
+      <div class="corner tr"></div>
+      <div class="corner bl"></div>
+      <div class="corner br"></div>
+      <div class="card-tag" style="color:#00ff88;">
+        <span style="background:#00ff88; box-shadow: 0 0 8px #00ff88;"></span>
+        MCPACK 02
+      </div>
+      <div class="card-title">POTATO MODE</div>
+      <div class="card-line" style="background: linear-gradient(90deg, #00ff88, transparent);"></div>
+      <div class="card-desc">ANTI-LAG · FLAT TEXTURES</div>
+      <div class="script-box" style="border-color: rgba(0,255,136,0.2);">
+        <div class="script-code" style="color: #00ff88; font-size: 0.65rem;">
+          ✦ Stripped visual effects<br>
+          ✦ Flat/minimal textures<br>
+          ✦ Max FPS boost
+        </div>
+      </div>
+      <a class="dl-btn" href="https://www.mediafire.com/file/eloxkk1pfr3iqdm/POTATO_ANTILAG_PACK.mcpack/file" target="_blank">[ DOWNLOAD PACK ]</a>
+    </div>
+
+  </div>
+
+</div>
+
+<style>
+  .mc-section { margin-top: 0; }
+
+  .mc-card {
+    border-color: rgba(0,255,136,0.25) !important;
+  }
+
+  .mc-card::before {
+    background: linear-gradient(135deg, #00ff88, transparent, #00fff7) !important;
+  }
+
+  .mc-card:hover {
+    box-shadow: 0 0 30px rgba(0,255,136,0.3), 0 0 60px rgba(0,255,247,0.1) !important;
+  }
+
+  .dl-btn {
+    display: block;
+    margin-top: 10px;
+    width: 100%;
+    padding: 7px 0;
+    background: transparent;
+    border: 1px solid #00ff88;
+    color: #00ff88;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-transform: uppercase;
+    text-decoration: none;
+    text-align: center;
+    box-sizing: border-box;
+  }
+
+  .dl-btn:hover {
+    background: rgba(0,255,136,0.15);
+    box-shadow: 0 0 12px rgba(0,255,136,0.4);
+  }
+</style>
+
+<script>
+  // Copy script
+  function copyScript() {
+    const text = document.getElementById('script1').innerText;
+    navigator.clipboard.writeText(text).then(() => {
+      const btn = document.querySelector('.copy-btn');
+      btn.textContent = '[ COPIED! ✓ ]';
+      btn.classList.add('copied');
+      setTimeout(() => {
+        btn.textContent = '[ COPY SCRIPT ]';
+        btn.classList.remove('copied');
+      }, 2000);
+    });
+  }
+
+  // Copy script 2
+  function copyScript2() {
+    const text = document.getElementById('script2').innerText;
+    navigator.clipboard.writeText(text).then(() => {
+      const btns = document.querySelectorAll('.copy-btn');
+      const btn = btns[1];
+      btn.textContent = '[ COPIED! ✓ ]';
+      btn.classList.add('copied');
+      setTimeout(() => {
+        btn.textContent = '[ COPY SCRIPT ]';
+        btn.classList.remove('copied');
+      }, 2000);
+    });
+  }
+
+  // Generate particles
+  const container = document.getElementById('particles');
+  for (let i = 0; i < 30; i++) {
+    const p = document.createElement('div');
+    p.className = 'particle';
+    p.style.left = Math.random() * 100 + 'vw';
+    p.style.animationDuration = (Math.random() * 8 + 6) + 's';
+    p.style.animationDelay = (Math.random() * 10) + 's';
+    p.style.width = p.style.height = (Math.random() > 0.5 ? 2 : 3) + 'px';
+    if (Math.random() > 0.7) p.style.background = '#ff0040';
+    container.appendChild(p);
+  }
+</script>
+</body>
+</html>
