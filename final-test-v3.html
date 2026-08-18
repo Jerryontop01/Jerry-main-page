@@ -1,0 +1,1935 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JERRYLUVSYU SCRIPT</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #000;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Orbitron', sans-serif;
+    overflow-x: hidden;
+    overflow-y: auto;
+    position: relative;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(0,255,180,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,255,180,0.04) 1px, transparent 1px);
+    background-size: 40px 40px;
+    animation: gridMove 20s linear infinite;
+    z-index: 0;
+  }
+
+  @keyframes gridMove {
+    0% { background-position: 0 0; }
+    100% { background-position: 40px 40px; }
+  }
+
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(0,0,0,0.15) 2px,
+      rgba(0,0,0,0.15) 4px
+    );
+    pointer-events: none;
+    z-index: 999;
+  }
+
+  .container {
+    position: relative;
+    z-index: 10;
+    text-align: center;
+    padding: 40px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .particles {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .particle {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: #00fff7;
+    border-radius: 50%;
+    animation: float linear infinite;
+    opacity: 0;
+  }
+
+  @keyframes float {
+    0% { transform: translateY(100vh) translateX(0); opacity: 0; }
+    10% { opacity: 1; }
+    90% { opacity: 1; }
+    100% { transform: translateY(-10vh) translateX(30px); opacity: 0; }
+  }
+
+  .header-image {
+    text-align: center;
+    margin-bottom: 25px;
+  }
+
+  .header-image img {
+    max-width: 320px;
+    width: 100%;
+    border-radius: 16px;
+    border: 3px solid #a855f7;
+    box-shadow: 
+      0 0 30px rgba(168, 85, 247, 0.3),
+      0 0 60px rgba(168, 85, 247, 0.15),
+      0 0 100px rgba(168, 85, 247, 0.08);
+    transition: all 0.4s ease;
+  }
+
+  .header-image img:hover {
+    box-shadow: 
+      0 0 40px rgba(168, 85, 247, 0.5),
+      0 0 80px rgba(168, 85, 247, 0.25),
+      0 0 120px rgba(168, 85, 247, 0.1);
+    transform: scale(1.02);
+  }
+
+  @media (max-width: 600px) {
+    .header-image img { max-width: 240px; }
+  }
+
+  .main-title {
+    font-size: clamp(2rem, 7vw, 5.5rem);
+    font-weight: 900;
+    letter-spacing: 0.15em;
+    color: #fff;
+    text-transform: uppercase;
+    position: relative;
+    animation: titleReveal 1s ease forwards;
+    opacity: 0;
+  }
+
+  @keyframes titleReveal {
+    0% { opacity: 0; transform: scale(1.1); filter: blur(20px); }
+    100% { opacity: 1; transform: scale(1); filter: blur(0); }
+  }
+
+  .main-title .glitch {
+    position: relative;
+    display: inline-block;
+    animation: glitch 3s infinite;
+  }
+
+  .main-title .glitch::before,
+  .main-title .glitch::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%;
+  }
+
+  .main-title .glitch::before {
+    color: #ff0040;
+    animation: glitchTop 3s infinite;
+    clip-path: polygon(0 0, 100% 0, 100% 35%, 0 35%);
+  }
+
+  .main-title .glitch::after {
+    color: #00fff7;
+    animation: glitchBot 3s infinite;
+    clip-path: polygon(0 65%, 100% 65%, 100% 100%, 0 100%);
+  }
+
+  @keyframes glitch {
+    0%, 90%, 100% { transform: none; }
+    92% { transform: skew(-1deg); }
+    94% { transform: skew(1deg); }
+    96% { transform: skew(-0.5deg); }
+  }
+
+  @keyframes glitchTop {
+    0%, 90%, 100% { transform: none; opacity: 0; }
+    92% { transform: translate(-3px, -2px); opacity: 1; }
+    94% { transform: translate(3px, 1px); opacity: 0.8; }
+    96% { transform: none; opacity: 0; }
+  }
+
+  @keyframes glitchBot {
+    0%, 90%, 100% { transform: none; opacity: 0; }
+    92% { transform: translate(3px, 2px); opacity: 1; }
+    94% { transform: translate(-2px, -1px); opacity: 0.8; }
+    96% { transform: none; opacity: 0; }
+  }
+
+  .subtitle {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: clamp(0.7rem, 2vw, 1rem);
+    letter-spacing: 0.4em;
+    color: #00fff7;
+    margin-top: 8px;
+    animation: fadeIn 1s 0.8s ease forwards;
+    opacity: 0;
+    text-shadow: 0 0 10px #00fff7;
+  }
+
+  @keyframes fadeIn {
+    to { opacity: 1; }
+  }
+
+  .status-bar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin: 15px 0 5px 0;
+    animation: fadeIn 1s 0.9s ease forwards;
+    opacity: 0;
+  }
+
+  .status-dot {
+    width: 10px;
+    height: 10px;
+    background: #00ff88;
+    border-radius: 50%;
+    animation: blink 1s infinite;
+    box-shadow: 0 0 20px rgba(0,255,136,0.5);
+  }
+
+  .status-text {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.6rem;
+    color: #00ff88;
+    letter-spacing: 0.3em;
+    text-shadow: 0 0 10px rgba(0,255,136,0.3);
+  }
+
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.2; }
+  }
+
+  .dev-badges {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin: 18px 0 15px 0;
+    animation: fadeIn 1s 1s ease forwards;
+    opacity: 0;
+  }
+
+  .dev-badge {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.55rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    padding: 8px 22px;
+    border: 1px solid rgba(0,255,247,0.2);
+    border-radius: 25px;
+    color: #ffffff;
+    text-transform: uppercase;
+    background: rgba(0,255,247,0.05);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+  }
+
+  .dev-badge:hover {
+    border-color: #00fff7;
+    color: #00fff7;
+    box-shadow: 0 0 30px rgba(0,255,247,0.15);
+    transform: translateY(-3px) scale(1.02);
+    background: rgba(0,255,247,0.08);
+  }
+
+  .dev-badge:active {
+    transform: scale(0.95);
+  }
+
+  .dev-motto {
+    margin: 15px auto 15px auto;
+    padding: 14px 25px;
+    border-left: 3px solid #a855f7;
+    max-width: 550px;
+    animation: fadeIn 1s 1.1s ease forwards;
+    opacity: 0;
+    background: rgba(168,85,247,0.03);
+    border-radius: 0 8px 8px 0;
+  }
+
+  .motto-text {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.85rem;
+    color: rgba(255,255,255,0.7);
+    letter-spacing: 0.05em;
+    display: block;
+    font-weight: 400;
+    text-shadow: 0 0 20px rgba(255,255,255,0.05);
+  }
+
+  .motto-author {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.6rem;
+    color: rgba(168,85,247,0.5);
+    letter-spacing: 0.25em;
+    display: block;
+    margin-top: 5px;
+    text-shadow: 0 0 20px rgba(168,85,247,0.1);
+  }
+
+  .skills-tags {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin: 5px 0 20px 0;
+    animation: fadeIn 1s 1.2s ease forwards;
+    opacity: 0;
+  }
+
+  .skills-tags span {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.6rem;
+    color: rgba(255,255,255,0.3);
+    padding: 4px 16px;
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 14px;
+    background: rgba(255,255,255,0.02);
+    transition: all 0.3s ease;
+    cursor: default;
+    letter-spacing: 0.05em;
+  }
+
+  .skills-tags span:hover {
+    color: #00fff7;
+    border-color: rgba(0,255,247,0.25);
+    background: rgba(0,255,247,0.04);
+    transform: translateY(-2px);
+  }
+
+  .divider {
+    width: 80%;
+    max-width: 600px;
+    height: 2px;
+    margin: 40px auto;
+    background: linear-gradient(90deg, transparent, #00fff7, #ff0040, #00fff7, transparent);
+    position: relative;
+    animation: fadeIn 1s 1.5s ease forwards;
+    opacity: 0;
+  }
+
+  .divider::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: inherit;
+    filter: blur(6px);
+    opacity: 0.8;
+  }
+
+  .sections {
+    display: flex;
+    gap: 30px;
+    justify-content: center;
+    flex-wrap: wrap;
+    animation: fadeIn 1s 1.5s ease forwards;
+    opacity: 0;
+  }
+
+  .section-card {
+    position: relative;
+    padding: 28px 36px;
+    border: 1px solid rgba(0,255,247,0.3);
+    background: rgba(0, 20, 30, 0.7);
+    cursor: default;
+    min-width: 220px;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+  }
+
+  .section-card::before {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    background: linear-gradient(135deg, #00fff7, transparent, #ff0040);
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  .section-card:hover::before { opacity: 1; }
+
+  .section-card:hover {
+    background: rgba(0, 40, 50, 0.9);
+    transform: translateY(-4px);
+    box-shadow: 0 0 30px rgba(0,255,247,0.3), 0 0 60px rgba(255,0,64,0.1);
+  }
+
+  .card-tag {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.3em;
+    color: #00ff88;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .card-tag::before {
+    content: '';
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    background: #00ff88;
+    border-radius: 50%;
+    box-shadow: 0 0 8px #00ff88;
+    animation: blink 1.2s infinite;
+  }
+
+  .card-title {
+    font-size: clamp(1.1rem, 3vw, 1.5rem);
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: 0.1em;
+    text-shadow: 0 0 20px rgba(0,255,247,0.5);
+  }
+
+  .card-line {
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(90deg, #00fff7, transparent);
+    margin: 14px 0;
+  }
+
+  .card-desc {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.7rem;
+    color: rgba(0,255,247,0.6);
+    letter-spacing: 0.1em;
+  }
+
+  .script-box {
+    margin-top: 14px;
+    background: rgba(0,0,0,0.6);
+    border: 1px solid rgba(0,255,247,0.2);
+    border-radius: 4px;
+    padding: 10px 12px;
+    text-align: left;
+    position: relative;
+  }
+
+  .script-code {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.62rem;
+    color: #00fff7;
+    word-break: break-all;
+    line-height: 1.5;
+    user-select: all;
+  }
+
+  .copy-btn {
+    margin-top: 10px;
+    width: 100%;
+    padding: 7px 0;
+    background: transparent;
+    border: 1px solid #00fff7;
+    color: #00fff7;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-transform: uppercase;
+  }
+
+  .copy-btn:hover {
+    background: rgba(0,255,247,0.15);
+    box-shadow: 0 0 12px rgba(0,255,247,0.4);
+  }
+
+  .section-card .corner {
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    border-color: #00fff7;
+    border-style: solid;
+    opacity: 0.6;
+  }
+  .corner.tl { top: 4px; left: 4px; border-width: 2px 0 0 2px; }
+  .corner.tr { top: 4px; right: 4px; border-width: 2px 2px 0 0; }
+  .corner.bl { bottom: 4px; left: 4px; border-width: 0 0 2px 2px; }
+  .corner.br { bottom: 4px; right: 4px; border-width: 0 2px 2px 0; }
+
+  .mc-section-wrapper {
+    display: none;
+    animation: fadeIn 0.8s ease forwards;
+  }
+
+  .mc-section-wrapper.unlocked {
+    display: flex;
+    gap: 30px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .mc-card {
+    border-color: rgba(0,255,136,0.25) !important;
+  }
+
+  .mc-card::before {
+    background: linear-gradient(135deg, #00ff88, transparent, #00fff7) !important;
+  }
+
+  .mc-card:hover {
+    box-shadow: 0 0 30px rgba(0,255,136,0.3), 0 0 60px rgba(0,255,247,0.1) !important;
+  }
+
+  .dl-btn {
+    display: block;
+    margin-top: 10px;
+    width: 100%;
+    padding: 7px 0;
+    background: transparent;
+    border: 1px solid #00ff88;
+    color: #00ff88;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-transform: uppercase;
+    text-decoration: none;
+    text-align: center;
+    box-sizing: border-box;
+  }
+
+  .dl-btn:hover {
+    background: rgba(0,255,136,0.15);
+    box-shadow: 0 0 12px rgba(0,255,136,0.4);
+  }
+
+  .section-label {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.5em;
+    color: rgba(0,255,247,0.5);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    text-align: center;
+  }
+
+  .auth-text {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.3em;
+    color: #ff0040;
+    text-align: center;
+    margin-bottom: 25px;
+    text-shadow: 0 0 20px rgba(255,0,64,0.4), 0 0 40px rgba(255,0,64,0.2);
+    animation: pulse 2s ease-in-out infinite;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  .auth-text::before,
+  .auth-text::after {
+    content: '⬡';
+    color: rgba(255,0,64,0.3);
+    font-size: 0.5rem;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 0.8; }
+    50% { opacity: 1; text-shadow: 0 0 30px rgba(255,0,64,0.6), 0 0 60px rgba(255,0,64,0.3); }
+  }
+
+  .mc-unlock-btn {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 14px 50px;
+    background: transparent;
+    border: 1px solid #00ff88;
+    color: #00ff88;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    cursor: pointer;
+    transition: all 0.3s;
+    text-transform: uppercase;
+    text-decoration: none;
+  }
+
+  .mc-unlock-btn:hover {
+    background: rgba(0,255,136,0.15);
+    box-shadow: 0 0 30px rgba(0,255,136,0.2);
+  }
+
+  .mc-unlock-btn.unlocked {
+    display: none;
+  }
+
+  #mcPasswordOverlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.95);
+    z-index: 9998;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(10px);
+  }
+
+  #mcPasswordOverlay.active {
+    display: flex;
+  }
+
+  .mc-password-box {
+    background: rgba(0,20,30,0.95);
+    padding: 40px 50px;
+    border: 1px solid #00ff88;
+    text-align: center;
+    max-width: 400px;
+    width: 90%;
+    position: relative;
+  }
+
+  .mc-password-box .corner {
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    border-color: #00ff88;
+    border-style: solid;
+    opacity: 0.8;
+  }
+  .mc-password-box .corner.tl { top: 6px; left: 6px; border-width: 2px 0 0 2px; }
+  .mc-password-box .corner.tr { top: 6px; right: 6px; border-width: 2px 2px 0 0; }
+  .mc-password-box .corner.bl { bottom: 6px; left: 6px; border-width: 0 0 2px 2px; }
+  .mc-password-box .corner.br { bottom: 6px; right: 6px; border-width: 0 2px 2px 0; }
+
+  .mc-password-title {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.5rem;
+    color: #00ff88;
+    text-shadow: 0 0 20px rgba(0,255,136,0.5);
+    margin-bottom: 8px;
+  }
+
+  .mc-password-sub {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.7rem;
+    color: rgba(0,255,136,0.5);
+    letter-spacing: 0.3em;
+    margin-bottom: 25px;
+  }
+
+  .mc-password-input {
+    width: 100%;
+    padding: 14px;
+    background: rgba(0,0,0,0.6);
+    border: 1px solid rgba(0,255,136,0.3);
+    color: #00ff88;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 1rem;
+    text-align: center;
+    outline: none;
+    margin-bottom: 15px;
+    letter-spacing: 0.2em;
+    transition: border 0.3s;
+  }
+
+  .mc-password-input:focus {
+    border-color: #00ff88;
+    box-shadow: 0 0 20px rgba(0,255,136,0.2);
+  }
+
+  .mc-password-btn {
+    width: 100%;
+    padding: 14px;
+    background: transparent;
+    border: 1px solid #00ff88;
+    color: #00ff88;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    cursor: pointer;
+    transition: all 0.3s;
+    text-transform: uppercase;
+  }
+
+  .mc-password-btn:hover {
+    background: rgba(0,255,136,0.15);
+    box-shadow: 0 0 30px rgba(0,255,136,0.2);
+  }
+
+  .mc-password-error {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.7rem;
+    color: #ff0040;
+    margin-top: 12px;
+    height: 20px;
+    text-shadow: 0 0 10px rgba(255,0,64,0.3);
+  }
+
+  .card-tag.script-tag {
+    color: #00ff88;
+  }
+
+  .card-tag.script-tag::before {
+    background: #00ff88;
+    box-shadow: 0 0 8px #00ff88;
+  }
+
+  .social-label {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.5em;
+    color: rgba(0,255,247,0.4);
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+
+  .social-links {
+    display: flex;
+    gap: 30px;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+    flex-wrap: wrap;
+  }
+
+  .social-btn {
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 25px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    cursor: pointer;
+  }
+
+  .social-btn.youtube {
+    border: 1px solid rgba(255,0,0,0.4);
+    background: rgba(255,0,0,0.05);
+    color: #ff0040;
+  }
+
+  .social-btn.youtube:hover {
+    background: rgba(255,0,0,0.15);
+    box-shadow: 0 0 30px rgba(255,0,0,0.2);
+    transform: translateY(-2px);
+  }
+
+  .social-btn.discord {
+    border: 1px solid rgba(88,101,242,0.4);
+    background: rgba(88,101,242,0.05);
+    color: #5865f2;
+  }
+
+  .social-btn.discord:hover {
+    background: rgba(88,101,242,0.15);
+    box-shadow: 0 0 30px rgba(88,101,242,0.2);
+    transform: translateY(-2px);
+  }
+
+  .social-btn svg {
+    width: 22px;
+    height: 22px;
+    fill: currentColor;
+  }
+
+  .version-info {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.55rem;
+    color: #ffffff;
+    letter-spacing: 0.2em;
+    margin-top: 30px;
+    animation: fadeIn 1s 1.8s ease forwards;
+    opacity: 0;
+    text-shadow: 0 0 20px rgba(255,255,255,0.2);
+  }
+
+  .scroll-top {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 48px;
+    height: 48px;
+    background: rgba(0,20,30,0.85);
+    border: 1px solid rgba(0,255,247,0.2);
+    color: #00fff7;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: all 0.3s;
+    z-index: 100;
+    backdrop-filter: blur(10px);
+    display: none;
+    border-radius: 50%;
+  }
+
+  .scroll-top:hover {
+    background: rgba(0,255,247,0.1);
+    box-shadow: 0 0 30px rgba(0,255,247,0.2);
+    transform: scale(1.1);
+  }
+
+  .scroll-top.visible {
+    display: block;
+    animation: fadeIn 0.3s ease;
+  }
+
+  /* ============================================================
+     ADMIN SIDEBAR
+     ============================================================ */
+  .admin-sidebar {
+    position: fixed;
+    top: 0;
+    right: -380px;
+    width: 350px;
+    height: 100vh;
+    background: rgba(0, 10, 20, 0.95);
+    border-left: 1px solid rgba(0,255,247,0.1);
+    z-index: 9999;
+    transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    backdrop-filter: blur(20px);
+    padding: 30px 25px;
+    overflow-y: auto;
+  }
+
+  .admin-sidebar.open {
+    right: 0;
+  }
+
+  /* Mga guhit sa gilid at taas */
+  .sidebar-lines {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    overflow: hidden;
+  }
+
+  .line-top {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, #00fff7, #a855f7, #ff0040, transparent);
+    background-size: 200% 100%;
+    animation: lineMove 3s linear infinite;
+  }
+
+  .line-side {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 3px;
+    height: 100%;
+    background: linear-gradient(180deg, transparent, #00fff7, #a855f7, #ff0040, transparent);
+    background-size: 100% 200%;
+    animation: lineMoveVertical 3s linear infinite;
+  }
+
+  @keyframes lineMove {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+  }
+
+  @keyframes lineMoveVertical {
+    0% { background-position: 0 -200%; }
+    100% { background-position: 0 200%; }
+  }
+
+  /* Sidebar Header */
+  .sidebar-header {
+    text-align: center;
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgba(0,255,247,0.05);
+    margin-bottom: 20px;
+    position: relative;
+  }
+
+  .sidebar-icon { font-size: 2rem; margin-bottom: 5px; }
+  .sidebar-title {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.2rem;
+    color: #fff;
+    letter-spacing: 0.2em;
+  }
+  .sidebar-status {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.55rem;
+    color: #ff0040;
+    letter-spacing: 0.2em;
+    margin-top: 4px;
+    text-shadow: 0 0 20px rgba(255,0,64,0.3);
+  }
+  .sidebar-status.unlocked {
+    color: #00ff88;
+    text-shadow: 0 0 20px rgba(0,255,136,0.3);
+  }
+
+  /* Sidebar Login */
+  .sidebar-login { margin-bottom: 20px; }
+  .sidebar-input {
+    width: 100%;
+    padding: 12px 16px;
+    background: rgba(0,0,0,0.5);
+    border: 1px solid rgba(0,255,247,0.15);
+    color: #00fff7;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.8rem;
+    text-align: center;
+    outline: none;
+    border-radius: 6px;
+    letter-spacing: 0.2em;
+    transition: all 0.3s;
+    margin-bottom: 10px;
+  }
+  .sidebar-input:focus {
+    border-color: #00fff7;
+    box-shadow: 0 0 20px rgba(0,255,247,0.1);
+  }
+  .sidebar-btn {
+    width: 100%;
+    padding: 12px;
+    background: transparent;
+    border: 1px solid #00fff7;
+    color: #00fff7;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    cursor: pointer;
+    transition: all 0.3s;
+    text-transform: uppercase;
+    border-radius: 6px;
+  }
+  .sidebar-btn:hover {
+    background: rgba(0,255,247,0.1);
+    box-shadow: 0 0 30px rgba(0,255,247,0.1);
+  }
+  .sidebar-error {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.55rem;
+    color: #ff0040;
+    margin-top: 8px;
+    text-align: center;
+    min-height: 20px;
+  }
+
+  /* Sidebar Content */
+  .sidebar-content { display: none; animation: fadeIn 0.5s ease; }
+  .sidebar-content.visible { display: block; }
+
+  .sidebar-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-bottom: 20px;
+  }
+  .sidebar-stat {
+    background: rgba(0,0,0,0.3);
+    padding: 12px 8px;
+    border-radius: 6px;
+    text-align: center;
+    border: 1px solid rgba(0,255,247,0.03);
+  }
+  .sidebar-stat .stat-num {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.2rem;
+    color: #00fff7;
+    display: block;
+    text-shadow: 0 0 20px rgba(0,255,247,0.1);
+  }
+  .sidebar-stat .stat-label {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.45rem;
+    color: rgba(255,255,255,0.2);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  /* Sidebar Actions */
+  .sidebar-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 20px;
+  }
+  .sidebar-action-btn {
+    padding: 10px;
+    background: transparent;
+    border: 1px solid rgba(0,255,247,0.08);
+    color: rgba(255,255,255,0.4);
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.55rem;
+    letter-spacing: 0.1em;
+    cursor: pointer;
+    transition: all 0.3s;
+    border-radius: 4px;
+  }
+  .sidebar-action-btn:hover {
+    border-color: rgba(0,255,247,0.2);
+    color: #00fff7;
+    background: rgba(0,255,247,0.03);
+  }
+
+  /* ===== ANNOUNCEMENT SECTION ===== */
+  .announcement-section {
+    margin-bottom: 20px;
+    padding: 15px;
+    background: rgba(0,0,0,0.3);
+    border-radius: 8px;
+    border: 1px solid rgba(0,255,247,0.05);
+  }
+
+  .announcement-header {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.6rem;
+    color: rgba(0,255,247,0.4);
+    letter-spacing: 0.2em;
+    margin-bottom: 12px;
+    text-align: center;
+  }
+
+  /* Admin Name */
+  .admin-name-section {
+    margin-bottom: 10px;
+  }
+
+  .admin-name-section label {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.5rem;
+    color: rgba(255,255,255,0.2);
+    letter-spacing: 0.1em;
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  .admin-name-input {
+    width: 100%;
+    padding: 8px 12px;
+    background: rgba(0,0,0,0.5);
+    border: 1px solid rgba(0,255,247,0.1);
+    color: #00fff7;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.7rem;
+    outline: none;
+    border-radius: 6px;
+    transition: all 0.3s;
+  }
+
+  .admin-name-input:focus {
+    border-color: rgba(0,255,247,0.3);
+    box-shadow: 0 0 20px rgba(0,255,247,0.05);
+  }
+
+  /* Announcement Input */
+  .announcement-input {
+    width: 100%;
+    padding: 10px 14px;
+    background: rgba(0,0,0,0.5);
+    border: 1px solid rgba(0,255,247,0.1);
+    color: #00fff7;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.7rem;
+    outline: none;
+    border-radius: 6px;
+    resize: vertical;
+    transition: all 0.3s;
+    line-height: 1.6;
+    box-sizing: border-box;
+  }
+
+  .announcement-input:focus {
+    border-color: rgba(0,255,247,0.3);
+    box-shadow: 0 0 20px rgba(0,255,247,0.05);
+  }
+
+  .announcement-input::placeholder {
+    color: rgba(255,255,255,0.15);
+  }
+
+  /* Announcement Button */
+  .announcement-btn {
+    width: 100%;
+    padding: 10px;
+    margin-top: 8px;
+    background: transparent;
+    border: 1px solid #00fff7;
+    color: #00fff7;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.55rem;
+    letter-spacing: 0.2em;
+    cursor: pointer;
+    transition: all 0.3s;
+    text-transform: uppercase;
+    border-radius: 6px;
+  }
+
+  .announcement-btn:hover {
+    background: rgba(0,255,247,0.1);
+    box-shadow: 0 0 30px rgba(0,255,247,0.1);
+  }
+
+  .announcement-btn:active {
+    transform: scale(0.98);
+  }
+
+  .announcement-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  /* Announcement Status */
+  .announcement-status {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.5rem;
+    color: rgba(255,255,255,0.15);
+    margin-top: 8px;
+    text-align: center;
+    min-height: 18px;
+  }
+
+  .announcement-status.success {
+    color: #00ff88;
+  }
+
+  .announcement-status.error {
+    color: #ff0040;
+  }
+
+  /* Sidebar Footer */
+  .sidebar-footer {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.55rem;
+    color: #ffffff;
+    letter-spacing: 0.15em;
+    margin-top: 10px;
+    padding-top: 15px;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    text-shadow: 0 0 20px rgba(255,255,255,0.1);
+  }
+
+  /* Sidebar Toggle Button - Three dots */
+  .sidebar-toggle {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    width: 40px;
+    height: 40px;
+    background: rgba(0,20,30,0.85);
+    border: 1px solid rgba(0,255,247,0.15);
+    border-radius: 8px;
+    color: #00fff7;
+    font-size: 1.5rem;
+    font-weight: 900;
+    cursor: pointer;
+    z-index: 10000;
+    backdrop-filter: blur(10px);
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    letter-spacing: 2px;
+    line-height: 1;
+  }
+
+  .sidebar-toggle:hover {
+    background: rgba(0,255,247,0.1);
+    box-shadow: 0 0 30px rgba(0,255,247,0.15);
+    transform: scale(1.05);
+  }
+
+  .sidebar-toggle.active {
+    right: 370px;
+    border-color: #ff0040;
+  }
+
+  /* Sidebar Scrollbar */
+  .admin-sidebar::-webkit-scrollbar { width: 3px; }
+  .admin-sidebar::-webkit-scrollbar-track { background: transparent; }
+  .admin-sidebar::-webkit-scrollbar-thumb {
+    background: rgba(0,255,247,0.2);
+    border-radius: 2px;
+  }
+
+  /* Responsive */
+  @media (max-width: 500px) {
+    .admin-sidebar {
+      width: 100%;
+      right: -100%;
+    }
+    .admin-sidebar.open { right: 0; }
+    .sidebar-toggle.active { right: 20px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== PARTICLES ===== -->
+<div class="particles" id="particles"></div>
+
+<!-- ===== PASSWORD OVERLAY ===== -->
+<div id="mcPasswordOverlay">
+  <div class="mc-password-box">
+    <div class="corner tl"></div>
+    <div class="corner tr"></div>
+    <div class="corner bl"></div>
+    <div class="corner br"></div>
+    <div class="mc-password-title">⛏️ MCPACK LOCKED</div>
+    <div class="mc-password-sub">ENTER PASSWORD TO REVEAL PACKS</div>
+    <input type="password" id="mcPasswordInput" class="mc-password-input" placeholder="ENTER PASSWORD..." autofocus>
+    <button class="mc-password-btn" onclick="checkMCPassword()">🔓 REVEAL PACKS</button>
+    <div class="mc-password-error" id="mcErrorMsg"></div>
+  </div>
+</div>
+
+<!-- ============================================================
+     ADMIN SIDEBAR
+     ============================================================ -->
+<div class="admin-sidebar" id="adminSidebar">
+  <!-- Mga guhit sa gilid at taas -->
+  <div class="sidebar-lines">
+    <div class="line-top"></div>
+    <div class="line-side"></div>
+  </div>
+  
+  <!-- Header -->
+  <div class="sidebar-header">
+    <div class="sidebar-icon">🔐</div>
+    <div class="sidebar-title">ADMIN</div>
+    <div class="sidebar-status" id="sidebarStatus">🔒 LOCKED</div>
+  </div>
+  
+  <!-- Login Form -->
+  <div class="sidebar-login" id="sidebarLogin">
+    <input type="password" id="sidebarPassword" class="sidebar-input" placeholder="ENTER PASSWORD" autofocus>
+    <button class="sidebar-btn" onclick="checkSidebarPassword()">UNLOCK</button>
+    <div class="sidebar-error" id="sidebarError"></div>
+  </div>
+  
+  <!-- Admin Content (Hidden) -->
+  <div class="sidebar-content" id="sidebarContent">
+    
+    <!-- ===== ANNOUNCEMENT SECTION ===== -->
+    <div class="announcement-section">
+      <div class="announcement-header">📢 ANNOUNCEMENT</div>
+      
+      <!-- Admin Name Input -->
+      <div class="admin-name-section">
+        <label for="adminNameInput">👤 Admin Name</label>
+        <input type="text" id="adminNameInput" class="admin-name-input" placeholder="Enter your name..." value="JERRYLUVSYU">
+      </div>
+      
+      <!-- Announcement Text Area -->
+      <textarea id="announcementInput" class="announcement-input" placeholder="Type your announcement here..." rows="3"></textarea>
+      
+      <!-- Send Button -->
+      <button class="announcement-btn" onclick="sendAnnouncement()">📤 SEND ANNOUNCEMENT</button>
+      
+      <!-- Status -->
+      <div class="announcement-status" id="announcementStatus"></div>
+    </div>
+    
+    <!-- ===== STATS ===== -->
+    <div class="sidebar-stats">
+      <div class="sidebar-stat">
+        <span class="stat-num" id="sidebarVisits">0</span>
+        <span class="stat-label">Visits</span>
+      </div>
+      <div class="sidebar-stat">
+        <span class="stat-num" id="sidebarCopies">0</span>
+        <span class="stat-label">Copies</span>
+      </div>
+      <div class="sidebar-stat">
+        <span class="stat-num" id="sidebarDownloads">0</span>
+        <span class="stat-label">Downloads</span>
+      </div>
+      <div class="sidebar-stat">
+        <span class="stat-num" id="sidebarEvents">0</span>
+        <span class="stat-label">Events</span>
+      </div>
+    </div>
+    
+    <!-- ===== ACTIONS ===== -->
+    <div class="sidebar-actions">
+      <button class="sidebar-action-btn" onclick="viewAnalytics()">📊 View Logs</button>
+      <button class="sidebar-action-btn" onclick="exportAnalytics()">📥 Export CSV</button>
+      <button class="sidebar-action-btn" onclick="location.reload()">🔄 Refresh</button>
+    </div>
+    
+    <!-- ===== FOOTER ===== -->
+    <div class="sidebar-footer">
+      <span>JERRYLUVSYU v1.3.1</span>
+      <span>●</span>
+      <span id="sidebarTime">--:--:--</span>
+    </div>
+  </div>
+</div>
+
+<!-- ===== SIDEBAR TOGGLE BUTTON (Three dots) ===== -->
+<button class="sidebar-toggle" id="sidebarToggle" onclick="toggleSidebar()">
+  <span class="toggle-icon">⋮</span>
+</button>
+
+<!-- ===== MAIN CONTAINER ===== -->
+<div class="container">
+
+  <div class="header-image">
+    <img src="https://raw.githubusercontent.com/Jerryontop01/Page/main/file_0000000047bc81fab7d67c163952e000.png" alt="JERRYLUVSYU">
+  </div>
+
+  <div class="main-title">
+    <span class="glitch" data-text="JERRYLUVSYU">JERRYLUVSYU</span>
+  </div>
+  <div class="subtitle">S C R I P T</div>
+
+  <div class="status-bar">
+    <span class="status-dot"></span>
+    <span class="status-text">SYSTEM ONLINE</span>
+  </div>
+
+  <div class="dev-badges">
+    <span class="dev-badge">⚡ SCRIPTING</span>
+    <span class="dev-badge">🔧 CREATING</span>
+    <span class="dev-badge">💡 INNOVATING</span>
+  </div>
+
+  <div class="dev-motto">
+    <span class="motto-text">"ALWAYS BUILDING, ALWAYS IMPROVING"</span>
+    <span class="motto-author">— JERRYLUVSYU</span>
+  </div>
+
+  <div class="skills-tags">
+    <span>#ROBLOX</span>
+    <span>#DEVELOPER</span>
+    <span>#TUTORIALS</span>
+    <span>#TIPS&TRICKS</span>
+    <span>#GAMEPLAY</span>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="sections">
+    <div class="section-card">
+      <div class="corner tl"></div>
+      <div class="corner tr"></div>
+      <div class="corner bl"></div>
+      <div class="corner br"></div>
+      <div class="card-tag script-tag">SCRIPT 01</div>
+      <div class="card-title">ANTILAG V1</div>
+      <div class="card-line"></div>
+      <div class="card-desc">PERFORMANCE OPTIMIZER</div>
+      <div class="script-box">
+        <div class="script-code" id="script1">loadstring(game:HttpGet("https://pastebin.com/raw/nt8VxNH4"))()</div>
+      </div>
+      <button class="copy-btn" onclick="copyScript('script1', this)">[ COPY SCRIPT ]</button>
+    </div>
+
+    <div class="section-card">
+      <div class="corner tl"></div>
+      <div class="corner tr"></div>
+      <div class="corner bl"></div>
+      <div class="corner br"></div>
+      <div class="card-tag script-tag">SCRIPT 02</div>
+      <div class="card-title">ANTILAG V2 DNS</div>
+      <div class="card-line"></div>
+      <div class="card-desc">DIESEL N STEEL</div>
+      <div class="script-box">
+        <div class="script-code" id="script2">loadstring(game:HttpGet("https://pastebin.com/raw/iKuikYx9"))()</div>
+      </div>
+      <button class="copy-btn" onclick="copyScript('script2', this)">[ COPY SCRIPT ]</button>
+    </div>
+
+    <div class="section-card">
+      <div class="corner tl"></div>
+      <div class="corner tr"></div>
+      <div class="corner bl"></div>
+      <div class="corner br"></div>
+      <div class="card-tag script-tag">SCRIPT 03</div>
+      <div class="card-title">JERRY HITBOX</div>
+      <div class="card-line"></div>
+      <div class="card-desc">HITBOX EXPANDER</div>
+      <div class="script-box">
+        <div class="script-code" id="script3">loadstring(game:HttpGet("https://raw.githubusercontent.com/Jerryontop01/Jerry-Hitbox/refs/heads/main/Jerry-Hitbox"))()</div>
+      </div>
+      <button class="copy-btn" onclick="copyScript('script3', this)">[ COPY SCRIPT ]</button>
+    </div>
+  </div>
+
+  <div class="divider" style="animation-delay: 0s; opacity: 1; margin-top: 60px;"></div>
+
+  <div class="section-label">⬡ MINECRAFT BEDROCK PACKS ⬡</div>
+  <div class="auth-text">🔐 AUTHORIZE PERSON ONLY</div>
+
+  <button class="mc-unlock-btn" id="mcUnlockBtn" onclick="showMCPassword()">🔓 UNLOCK MCPACKS</button>
+
+  <div class="mc-section-wrapper" id="mcSectionWrapper">
+    <div class="section-card mc-card">
+      <div class="corner tl"></div>
+      <div class="corner tr"></div>
+      <div class="corner bl"></div>
+      <div class="corner br"></div>
+      <div class="card-tag" style="color:#00ff88;">MCPACK 01</div>
+      <div class="card-title">ALBERTO REMAKE</div>
+      <div class="card-line" style="background: linear-gradient(90deg, #00ff88, transparent);"></div>
+      <div class="card-desc">CLIENT PACK · TWILIGHT SMP</div>
+      <div class="script-box" style="border-color: rgba(0,255,136,0.2);">
+        <div class="script-code" style="color: #00ff88; font-size: 0.65rem;">
+          ✦ Custom textures &amp; UI<br>
+          ✦ Neon cyberpunk theme<br>
+          ✦ Optimized for Bedrock
+        </div>
+      </div>
+      <a class="dl-btn" href="https://www.mediafire.com/file/spybs6zoxwkezel/Alberto_Client_v1_mcpack_CLEAN.mcpack/file" target="_blank">[ DOWNLOAD PACK ]</a>
+    </div>
+
+    <div class="section-card mc-card">
+      <div class="corner tl"></div>
+      <div class="corner tr"></div>
+      <div class="corner bl"></div>
+      <div class="corner br"></div>
+      <div class="card-tag" style="color:#00ff88;">MCPACK 02</div>
+      <div class="card-title">POTATO MODE</div>
+      <div class="card-line" style="background: linear-gradient(90deg, #00ff88, transparent);"></div>
+      <div class="card-desc">ANTI-LAG · FLAT TEXTURES</div>
+      <div class="script-box" style="border-color: rgba(0,255,136,0.2);">
+        <div class="script-code" style="color: #00ff88; font-size: 0.65rem;">
+          ✦ Stripped visual effects<br>
+          ✦ Flat/minimal textures<br>
+          ✦ Max FPS boost
+        </div>
+      </div>
+      <a class="dl-btn" href="https://www.mediafire.com/file/eloxkk1pfr3iqdm/POTATO_ANTILAG_PACK.mcpack/file" target="_blank">[ DOWNLOAD PACK ]</a>
+    </div>
+  </div>
+
+  <div class="divider" style="animation-delay: 0s; opacity: 1; margin-top: 50px;"></div>
+
+  <div class="social-label">⬡ SOCIAL LINKS ⬡</div>
+  <div class="social-links">
+    <a href="https://youtube.com/@jerry-luvsyu?si=Hu_F9kMqJ_LwfkgK" target="_blank" class="social-btn youtube">
+      <svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+      YouTube
+    </a>
+    <a href="https://discord.gg/kVbRtRMutc" target="_blank" class="social-btn discord">
+      <svg viewBox="0 0 24 24"><path d="M20.317 4.492a.717.717 0 0 0-.043-.043A15.127 15.127 0 0 0 16.324 3c-.256.46-.532.958-.741 1.4a14.708 14.708 0 0 0-4.166 0c-.21-.442-.486-.94-.742-1.4a15.098 15.098 0 0 0-3.95 1.449.717.717 0 0 0-.043.043A15.753 15.753 0 0 0 3.5 8.457a15.87 15.87 0 0 0 4.43 4.483c.358.263.758.49 1.18.686.466-.633.88-1.31 1.235-2.025a7.605 7.605 0 0 1-1.947-.932c.146-.106.29-.216.43-.33a12.275 12.275 0 0 0 7.304 0c.14.114.284.224.43.33a7.59 7.59 0 0 1-1.947.932c.355.715.769 1.392 1.235 2.025a9.847 9.847 0 0 0 1.18-.686 15.865 15.865 0 0 0 4.43-4.483 15.756 15.756 0 0 0-1.683-3.965z"/></svg>
+      Discord
+    </a>
+  </div>
+
+  <div class="version-info">JERRYLUVSYU v1.3.1 · BUILD 2026</div>
+
+</div>
+
+<button class="scroll-top" id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">⬆</button>
+
+<audio id="bgMusic" loop>
+  <source src="https://raw.githubusercontent.com/Jerryontop01/Page/main/KODAK%20BLU%20-%20gaspari%20(OLV).mp3" type="audio/mpeg">
+</audio>
+
+<script>
+  // ============================================================
+  // MC PASSWORD
+  // ============================================================
+  let mcUnlocked = false;
+
+  function showMCPassword() {
+    document.getElementById('mcPasswordOverlay').classList.add('active');
+    document.getElementById('mcPasswordInput').focus();
+    startMusic();
+  }
+
+  function checkMCPassword() {
+    const input = document.getElementById('mcPasswordInput').value;
+    const correctPassword = 'JERRYLUVSYU';
+    const error = document.getElementById('mcErrorMsg');
+
+    if (input === correctPassword) {
+      mcUnlocked = true;
+      document.getElementById('mcPasswordOverlay').classList.remove('active');
+      document.getElementById('mcSectionWrapper').classList.add('unlocked');
+      document.getElementById('mcUnlockBtn').classList.add('unlocked');
+      error.textContent = '';
+      document.getElementById('mcPasswordInput').value = '';
+      startMusic();
+      trackEvent('mc_unlock');
+    } else {
+      error.textContent = '❌ INCORRECT PASSWORD!';
+      document.getElementById('mcPasswordInput').value = '';
+      document.getElementById('mcPasswordInput').focus();
+    }
+  }
+
+  document.getElementById('mcPasswordInput').addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') checkMCPassword();
+  });
+
+  // ============================================================
+  // SIDEBAR FUNCTIONS
+  // ============================================================
+
+  // Toggle sidebar
+  function toggleSidebar() {
+    const sidebar = document.getElementById('adminSidebar');
+    const toggle = document.getElementById('sidebarToggle');
+    sidebar.classList.toggle('open');
+    toggle.classList.toggle('active');
+  }
+
+  // Check sidebar password
+  function checkSidebarPassword() {
+    const input = document.getElementById('sidebarPassword');
+    const error = document.getElementById('sidebarError');
+    const correctPassword = 'JERRYLUVSYU'; // BAGONG PASSWORD
+    
+    if (input.value === correctPassword) {
+      // Unlock
+      document.getElementById('sidebarLogin').style.display = 'none';
+      document.getElementById('sidebarContent').classList.add('visible');
+      document.getElementById('sidebarStatus').textContent = '🔓 UNLOCKED';
+      document.getElementById('sidebarStatus').classList.add('unlocked');
+      error.textContent = '';
+      input.value = '';
+      startMusic();
+      trackEvent('admin_unlock');
+      updateSidebarStats();
+    } else {
+      error.textContent = '❌ INCORRECT PASSWORD!';
+      input.value = '';
+      input.focus();
+    }
+  }
+
+  // Enter key sa sidebar password
+  document.getElementById('sidebarPassword').addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') checkSidebarPassword();
+  });
+
+  // Update sidebar stats
+  function updateSidebarStats() {
+    const totalVisits = localStorage.getItem('totalVisits') || 0;
+    const packDownloads = localStorage.getItem('packDownloads') || 0;
+    const scriptCopies = localStorage.getItem('scriptCopies') || 0;
+    const logs = JSON.parse(localStorage.getItem('analyticsLogs')) || [];
+    
+    document.getElementById('sidebarVisits').textContent = totalVisits;
+    document.getElementById('sidebarCopies').textContent = scriptCopies;
+    document.getElementById('sidebarDownloads').textContent = packDownloads;
+    document.getElementById('sidebarEvents').textContent = logs.length;
+  }
+
+  // Update time sa sidebar footer
+  function updateSidebarTime() {
+    const now = new Date();
+    document.getElementById('sidebarTime').textContent = now.toLocaleTimeString('en-US', { hour12: false });
+  }
+  setInterval(updateSidebarTime, 1000);
+  updateSidebarTime();
+
+  // ============================================================
+  // COPY SCRIPTS (Improved - Hindi na nagfa-fail)
+  // ============================================================
+  function copyScript(elementId, btn) {
+    const text = document.getElementById(elementId).innerText;
+    
+    // Simple at reliable copy method
+    const textarea = document.createElement('textarea');
+    textarea.value = text;
+    textarea.style.cssText = 'position:fixed;opacity:0;left:-9999px;top:-9999px;';
+    document.body.appendChild(textarea);
+    textarea.select();
+    
+    try {
+      const success = document.execCommand('copy');
+      document.body.removeChild(textarea);
+      
+      if (success) {
+        btn.textContent = '[ COPIED! ✓ ]';
+        btn.style.borderColor = '#00ff88';
+        btn.style.color = '#00ff88';
+        btn.style.boxShadow = '0 0 20px rgba(0,255,136,0.4)';
+        startMusic();
+        trackEvent('script_copy', { script: elementId });
+        
+        // Update script copies counter
+        let copies = parseInt(localStorage.getItem('scriptCopies')) || 0;
+        copies++;
+        localStorage.setItem('scriptCopies', copies);
+        
+        setTimeout(() => {
+          btn.textContent = '[ COPY SCRIPT ]';
+          btn.style.borderColor = '#00fff7';
+          btn.style.color = '#00fff7';
+          btn.style.boxShadow = 'none';
+        }, 2000);
+      } else {
+        btn.textContent = '[ COPY FAILED ]';
+        btn.style.borderColor = '#ff0040';
+        btn.style.color = '#ff0040';
+        setTimeout(() => {
+          btn.textContent = '[ COPY SCRIPT ]';
+          btn.style.borderColor = '#00fff7';
+          btn.style.color = '#00fff7';
+          btn.style.boxShadow = 'none';
+        }, 2000);
+      }
+    } catch (e) {
+      document.body.removeChild(textarea);
+      btn.textContent = '[ COPY FAILED ]';
+      btn.style.borderColor = '#ff0040';
+      btn.style.color = '#ff0040';
+      setTimeout(() => {
+        btn.textContent = '[ COPY SCRIPT ]';
+        btn.style.borderColor = '#00fff7';
+        btn.style.color = '#00fff7';
+        btn.style.boxShadow = 'none';
+      }, 2000);
+    }
+  }
+
+  // ============================================================
+  // ===== DISCORD WEBHOOK (UPDATED) =====
+  // ============================================================
+  const ANALYTICS_WEBHOOK = "https://discord.com/api/webhooks/1539284962971222048/z-IhcH5UT-YggbnHbTk5e8eUo7YPRmIztEHCBPPU0Sz5UzFHngv1Aie0PQDLD4ryCjlf";
+
+  // ============================================================
+  // ADMIN ANNOUNCEMENT SYSTEM (with Custom Name)
+  // ============================================================
+
+  // Load saved admin name
+  window.addEventListener('load', function() {
+    const savedName = localStorage.getItem('adminName');
+    if (savedName) {
+      document.getElementById('adminNameInput').value = savedName;
+    }
+  });
+
+  // Save admin name when changed
+  document.getElementById('adminNameInput')?.addEventListener('change', function() {
+    localStorage.setItem('adminName', this.value);
+  });
+
+  async function sendAnnouncement() {
+    const input = document.getElementById('announcementInput');
+    const status = document.getElementById('announcementStatus');
+    const nameInput = document.getElementById('adminNameInput');
+    const message = input.value.trim();
+    
+    // Get admin name (default to JERRYLUVSYU if empty)
+    let adminName = nameInput.value.trim() || 'JERRYLUVSYU';
+    
+    // Check if message is empty
+    if (!message) {
+      status.textContent = '⚠️ Please type a message first!';
+      status.className = 'announcement-status error';
+      return;
+    }
+    
+    // Disable button while sending
+    const btn = document.querySelector('.announcement-btn');
+    btn.textContent = '⏳ SENDING...';
+    btn.disabled = true;
+    status.textContent = '';
+    
+    // Get date and time
+    const now = new Date();
+    const date = now.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+    const time = now.toLocaleTimeString('en-US', { hour12: false });
+    
+    const data = {
+      content: `📢 **ADMIN ANNOUNCEMENT**`,
+      embeds: [{
+        title: "📢 Announcement",
+        color: 0xff0040,
+        description: `"${message}"`,
+        fields: [
+          { name: "👤 Admin", value: adminName, inline: true },
+          { name: "📅 Date", value: date, inline: true },
+          { name: "⏰ Time", value: time, inline: true }
+        ],
+        footer: {
+          text: "JERRYLUVSYU · Admin Announcement"
+        },
+        timestamp: new Date().toISOString()
+      }]
+    };
+    
+    try {
+      const response = await fetch(ANALYTICS_WEBHOOK, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+      
+      if (response.ok) {
+        status.textContent = `✅ Announcement sent as "${adminName}"!`;
+        status.className = 'announcement-status success';
+        input.value = '';
+        trackEvent('admin_announcement', { 
+          message: message.substring(0, 50) + '...',
+          admin: adminName 
+        });
+      } else {
+        status.textContent = '❌ Failed to send!';
+        status.className = 'announcement-status error';
+      }
+    } catch (error) {
+      status.textContent = '❌ Error sending announcement!';
+      status.className = 'announcement-status error';
+      console.log('❌ Announcement error:', error);
+    }
+    
+    // Reset button
+    btn.textContent = '📤 SEND ANNOUNCEMENT';
+    btn.disabled = false;
+  }
+
+  // Allow Ctrl+Enter to send
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter' && e.ctrlKey) {
+      const input = document.getElementById('announcementInput');
+      if (document.activeElement === input) {
+        e.preventDefault();
+        sendAnnouncement();
+      }
+    }
+  });
+
+  // ============================================================
+  // PARTICLES
+  // ============================================================
+  const container = document.getElementById('particles');
+  for (let i = 0; i < 30; i++) {
+    const p = document.createElement('div');
+    p.className = 'particle';
+    p.style.left = Math.random() * 100 + 'vw';
+    p.style.animationDuration = (Math.random() * 8 + 6) + 's';
+    p.style.animationDelay = (Math.random() * 10) + 's';
+    p.style.width = p.style.height = (Math.random() > 0.5 ? 2 : 3) + 'px';
+    if (Math.random() > 0.7) p.style.background = '#ff0040';
+    container.appendChild(p);
+  }
+
+  // ============================================================
+  // MUSIC CONTROLS
+  // ============================================================
+  const music = document.getElementById('bgMusic');
+  let musicStarted = false;
+  music.volume = 0.7;
+
+  function startMusic() {
+    if (!musicStarted) {
+      music.play().then(() => {
+        console.log('🎵 Music started!');
+        musicStarted = true;
+      }).catch((error) => {
+        console.log('❌ Music failed:', error);
+      });
+    }
+  }
+
+  document.addEventListener('click', function() {
+    startMusic();
+  });
+
+  // ============================================================
+  // SCROLL TO TOP
+  // ============================================================
+  window.addEventListener('scroll', function() {
+    const btn = document.getElementById('scrollTop');
+    if (window.scrollY > 400) {
+      btn.classList.add('visible');
+    } else {
+      btn.classList.remove('visible');
+    }
+  });
+
+  // ============================================================
+  // ===== SELF-MADE ANALYTICS WITH DISCORD WEBHOOK =====
+  // ============================================================
+
+  // Track an event
+  function trackEvent(eventName, extraData = {}) {
+    const now = new Date();
+    const timestamp = now.toISOString();
+    const date = now.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+    const time = now.toLocaleTimeString('en-US', { hour12: false });
+
+    // Get existing logs
+    let logs = JSON.parse(localStorage.getItem('analyticsLogs')) || [];
+    
+    // Create entry
+    const entry = {
+      event: eventName,
+      timestamp: timestamp,
+      date: date,
+      time: time,
+      userAgent: navigator.userAgent,
+      device: navigator.platform || 'Unknown',
+      screen: `${window.screen.width}x${window.screen.height}`,
+      referrer: document.referrer || 'Direct',
+      ...extraData
+    };
+    
+    // Save to localStorage
+    logs.push(entry);
+    if (logs.length > 200) logs = logs.slice(-200);
+    localStorage.setItem('analyticsLogs', JSON.stringify(logs));
+    
+    // Send to Discord
+    sendToDiscord(entry);
+    
+    console.log('📊 Event tracked:', eventName, entry);
+  }
+
+  // Send to Discord
+  async function sendToDiscord(entry) {
+    // Get total counts
+    const totalVisits = parseInt(localStorage.getItem('totalVisits')) || 0;
+    const totalCopies = parseInt(localStorage.getItem('scriptCopies')) || 0;
+    const totalDownloads = parseInt(localStorage.getItem('packDownloads')) || 0;
+
+    const data = {
+      content: `📊 **${entry.event.toUpperCase()}**`,
+      embeds: [{
+        color: 0x00fff7,
+        fields: [
+          { name: "🕐 Time", value: `${entry.date} ${entry.time}`, inline: true },
+          { name: "📱 Device", value: entry.device, inline: true },
+          { name: "🖥️ Screen", value: entry.screen, inline: true },
+          { name: "🔗 Referrer", value: entry.referrer, inline: false },
+          { name: "📊 Total Visits", value: `${totalVisits}`, inline: true },
+          { name: "📋 Scripts Copied", value: `${totalCopies}`, inline: true },
+          { name: "📦 Pack Downloads", value: `${totalDownloads}`, inline: true }
+        ],
+        footer: { text: "JERRYLUVSYU · Analytics" },
+        timestamp: entry.timestamp
+      }]
+    };
+    
+    // Add extra data if any
+    const extraFields = ['script', 'pack', 'action', 'message', 'admin'];
+    extraFields.forEach(field => {
+      if (entry[field]) {
+        data.embeds[0].fields.push({ name: `📝 ${field}`, value: entry[field], inline: true });
+      }
+    });
+    
+    try {
+      await fetch(ANALYTICS_WEBHOOK, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+      console.log('✅ Analytics sent to Discord!');
+    } catch (error) {
+      console.log('❌ Analytics log failed:', error);
+    }
+  }
+
+  // ============================================================
+  // TRACK EVENTS
+  // ============================================================
+
+  // 1. Track page view (every load)
+  setTimeout(() => {
+    trackEvent('page_view');
+  }, 2000);
+
+  // 2. Track pack downloads
+  document.querySelectorAll('.dl-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+      let downloads = parseInt(localStorage.getItem('packDownloads')) || 0;
+      downloads++;
+      localStorage.setItem('packDownloads', downloads);
+      trackEvent('pack_download', { pack: this.textContent.trim() });
+    });
+  });
+
+  // ============================================================
+  // VIEW ANALYTICS (Sa browser console - F12)
+  // ============================================================
+
+  // View all logs
+  function viewAnalytics() {
+    const logs = JSON.parse(localStorage.getItem('analyticsLogs')) || [];
+    console.table(logs);
+  }
+
+  // View summary
+  function viewSummary() {
+    const logs = JSON.parse(localStorage.getItem('analyticsLogs')) || [];
+    const summary = {
+      totalEvents: logs.length,
+      pageViews: logs.filter(l => l.event === 'page_view').length,
+      scriptCopies: logs.filter(l => l.event === 'script_copy').length,
+      packDownloads: logs.filter(l => l.event === 'pack_download').length,
+      adminUnlocks: logs.filter(l => l.event === 'admin_unlock').length,
+      mcUnlocks: logs.filter(l => l.event === 'mc_unlock').length,
+      adminAnnouncements: logs.filter(l => l.event === 'admin_announcement').length
+    };
+    console.table(summary);
+  }
+
+  // Export as CSV
+  function exportAnalytics() {
+    const logs = JSON.parse(localStorage.getItem('analyticsLogs')) || [];
+    if (logs.length === 0) {
+      alert('No data to export!');
+      return;
+    }
+    
+    const headers = Object.keys(logs[0]);
+    let csv = headers.join(',') + '\n';
+    logs.forEach(row => {
+      csv += headers.map(h => `"${row[h] || ''}"`).join(',') + '\n';
+    });
+    
+    const blob = new Blob([csv], { type: 'text/csv' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `analytics_${new Date().toISOString().slice(0,10)}.csv`;
+    a.click();
+    URL.revokeObjectURL(url);
+  }
+
+  console.log('📊 Analytics loaded!');
+  console.log('🔧 Commands: viewAnalytics(), viewSummary(), exportAnalytics()');
+</script>
+</body>
+</html>
